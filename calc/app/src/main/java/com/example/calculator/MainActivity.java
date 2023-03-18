@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         DIV
     }
     ActionList curAction = ActionList.NOPE;
-    Integer buffer = 0;
+    Double firstNumber = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             String str = String.valueOf((String) outText.getText());
             if (str != null && str.length() > 0) {
                 curAction = ActionList.PLUS;
-                buffer = Integer.valueOf(str);
+                firstNumber = Double.valueOf(str);
                 outText.setText("");
             }
         });
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             String str = String.valueOf((String) outText.getText());
             if (str != null && str.length() > 0) {
                 curAction = ActionList.MINUS;
-                buffer = Integer.valueOf(str);
+                firstNumber = Double.valueOf(str);
                 outText.setText("");
             }
         });
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             String str = String.valueOf((String) outText.getText());
             if (str != null && str.length() > 0) {
                 curAction = ActionList.MULTI;
-                buffer = Integer.valueOf(str);
+                firstNumber = Double.valueOf(str);
                 outText.setText("");
             }
         });
@@ -119,31 +119,38 @@ public class MainActivity extends AppCompatActivity {
             String str = String.valueOf((String) outText.getText());
             if (str != null && str.length() > 0) {
                 curAction = ActionList.DIV;
-                buffer = Integer.valueOf(str);
+                firstNumber = Double.valueOf(str);
                 outText.setText("");
             }
         });
 
         Button actEq = (Button) findViewById(R.id.buttonActEq);
         actEq.setOnClickListener(view -> {
-            Integer buffer2 = Integer.valueOf((String) outText.getText());
+            Double secondValue;
+            String str = String.valueOf((String) outText.getText());
+            if (str != null && str.length() > 0) {
+                secondValue = Double.valueOf(str);
+            }
+            else {
+                return;
+            }
 
             switch (curAction) {
                 case PLUS:
-                    buffer = buffer + buffer2;
-                    outText.setText(String.valueOf(buffer));
+                    firstNumber = firstNumber + secondValue;
+                    outText.setText(String.valueOf(firstNumber));
                     break;
                 case MINUS:
-                    buffer = buffer - buffer2;
-                    outText.setText(String.valueOf(buffer));
+                    firstNumber = firstNumber - secondValue;
+                    outText.setText(String.valueOf(firstNumber));
                     break;
                 case MULTI:
-                    buffer = buffer * buffer2;
-                    outText.setText(String.valueOf(buffer));
+                    firstNumber = firstNumber * secondValue;
+                    outText.setText(String.valueOf(firstNumber));
                     break;
                 case DIV:
-                    buffer = buffer / buffer2;
-                    outText.setText(String.valueOf(buffer));
+                    firstNumber = firstNumber / secondValue;
+                    outText.setText(String.valueOf(firstNumber));
                     break;
                 default:
                     break;
